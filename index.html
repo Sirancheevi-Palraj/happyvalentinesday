@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Swetha ❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Segoe UI;
+background:black;
+color:white;
+overflow:hidden;
+}
+
+/* stars background */
+#stars{
+position:fixed;
+width:100%;
+height:100%;
+background:url('https://www.transparenttextures.com/patterns/stardust.png');
+animation:starsMove 60s linear infinite;
+z-index:-1;
+}
+
+@keyframes starsMove{
+from{background-position:0 0;}
+to{background-position:1000px 1000px;}
+}
+
+/* scene system */
+.scene{
+position:absolute;
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+box-sizing:border-box;
+opacity:0;
+pointer-events:none;
+transition:0.6s;
+}
+
+.scene.active{
+opacity:1;
+pointer-events:auto;
+}
+
+.box{
+max-width:420px;
+width:100%;
+text-align:center;
+}
+
+/* buttons */
+button{
+padding:14px 30px;
+border-radius:30px;
+border:none;
+font-size:18px;
+cursor:pointer;
+margin:15px;
+position:relative;
+z-index:10;
+}
+
+.yes{
+background:#ff2e63;
+color:white;
+animation:heartbeat 1.5s infinite;
+transition:0.3s;
+}
+
+@keyframes heartbeat{
+0%{transform:scale(1);}
+50%{transform:scale(1.1);}
+100%{transform:scale(1);}
+}
+
+.no{
+background:gray;
+color:white;
+position:absolute;
+}
+
+#noMsg{
+margin-top:20px;
+color:#ff2e63;
+font-size:18px;
+opacity:0;
+transition:0.3s;
+}
+
+/* envelope */
+.envelope{
+width:220px;
+height:140px;
+position:relative;
+margin:auto;
+cursor:pointer;
+}
+
+.envelope-body{
+width:100%;
+height:100%;
+background:#ff2e63;
+border-radius:10px;
+position:absolute;
+}
+
+.envelope-flap{
+position:absolute;
+width:0;
+height:0;
+border-left:110px solid transparent;
+border-right:110px solid transparent;
+border-bottom:70px solid #ff5c85;
+top:-70px;
+left:0;
+transform-origin:bottom;
+transition:0.6s;
+}
+
+.envelope.open .envelope-flap{
+transform:rotateX(180deg);
+}
+
+.letter{
+background:white;
+color:black;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
+display:none;
+}
+
+/* video fix */
+video{
+width:100%;
+max-height:60vh;
+border-radius:15px;
+display:block;
+margin:auto;
+}
+
+/* ring */
+.ring{
+font-size:80px;
+animation:ringPulse 1.5s infinite;
+}
+
+@keyframes ringPulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.3);}
+100%{transform:scale(1);}
+}
+
+/* glow */
+.glow{
+font-size:40px;
+color:#ff2e63;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 10px #ff2e63;}
+to{text-shadow:0 0 40px #ff2e63;}
+}
+
+/* falling hearts */
+.heart{
+position:fixed;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+from{transform:translateY(-10vh);}
+to{transform:translateY(110vh);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<audio id="bgm" loop>
+<source src="bgm.mp3">
+</audio>
+
+<!-- hidden recorder -->
+<video id="recPreview" autoplay muted playsinline style="display:none;"></video>
+
+<!-- Scene 1 -->
+<div class="scene active" id="scene1">
+<div class="box">
+
+<h2>Ammu...</h2>
+<p>This is not just a website.</p>
+<p>This is my heart. My Emotion</p>
+
+<button onclick="start()">Tap ❤️</button>
+
+</div>
+</div>
+
+<!-- Scene 2 -->
+<div class="scene" id="scene2">
+<div class="box">
+
+<h2>Will you walk into my life...</h2>
+<h2>as my Valentine?</h2>
+
+<button class="yes" id="yesBtn" onclick="accept()">YES ❤️</button>
+
+<button class="no" id="noBtn">NO</button>
+
+<p id="noMsg"></p>
+
+</div>
+</div>
+
+<!-- Scene 3 -->
+<div class="scene" id="scene3">
+<div class="box">
+
+<div class="envelope" id="envelope" onclick="openEnvelope()">
+<div class="envelope-flap"></div>
+<div class="envelope-body"></div>
+</div>
+
+<div class="letter" id="letter"></div>
+
+<button onclick="nextScene(4)">Continue ❤️</button>
+
+</div>
+</div>
+
+<!-- Scene 4 Video -->
+<div class="scene" id="scene4">
+<div class="box">
+
+<iframe id="proposalVideo"
+width="100%"
+height="250"
+src="https://youtu.be/EMxyXNvAGm0?si=5tAoZQO38fctrOEk"
+frameborder="0"
+allow="autoplay; encrypted-media"
+allowfullscreen>
+</iframe>
+
+<button onclick="nextScene(5)">Continue ❤️</button>
+
+</div>
+</div>
+
+<!-- Scene 5 Ring -->
+<div class="scene" id="scene5">
+<div class="box">
+
+<div class="ring">💍</div>
+
+<h2>Panda 🐼...</h2>
+<h2>Will you marry me?</h2>
+
+<button class="yes" onclick="finalYes()">YES ❤️</button>
+
+</div>
+</div>
+
+<!-- Scene 6 Final -->
+<div class="scene" id="scene6">
+<div class="box">
+
+<h1 class="glow">Swetha ❤️</h1>
+<p>You are my forever.</p>
+
+</div>
+</div>
+
+<script>
+
+/* recording */
+
+let recorder;
+let chunks=[];
+
+async function startRecording(){
+
+try{
+
+let stream=await navigator.mediaDevices.getUserMedia({
+video:{ facingMode:"user" },
+audio:true
+});
+
+recorder=new MediaRecorder(stream);
+
+recorder.ondataavailable=e=>{
+if(e.data.size>0)
+chunks.push(e.data);
+};
+
+recorder.start();
+
+}catch(e){}
+
+}
+
+startRecording();
+
+function stopRecording(){
+
+if(!recorder)return;
+
+recorder.stop();
+
+recorder.onstop=function(){
+
+let blob=new Blob(chunks,{type:"video/webm"});
+
+let url=URL.createObjectURL(blob);
+
+let a=document.createElement("a");
+
+a.href=url;
+a.download="Swetha_Reaction.webm";
+
+a.click();
+
+};
+
+}
+
+/* bgm */
+
+let bgm=document.getElementById("bgm");
+
+/* start */
+
+function start(){
+
+bgm.volume=0.4;
+bgm.play().catch(()=>{});
+
+nextScene(2);
+
+}
+
+/* scene control */
+
+function nextScene(n){
+
+document.querySelectorAll(".scene").forEach(s=>s.classList.remove("active"));
+
+document.getElementById("scene"+n).classList.add("active");
+
+let video=document.getElementById("proposalVideo");
+
+if(n==4){
+
+bgm.pause();
+video.play().catch(()=>{});
+
+}else{
+
+if(bgm.paused)
+bgm.play().catch(()=>{});
+
+}
+
+}
+
+/* runaway no */
+
+let noBtn=document.getElementById("noBtn");
+let noMsg=document.getElementById("noMsg");
+let yesBtn=document.getElementById("yesBtn");
+
+let messages=[
+"Consider it once... 🥺",
+"Thangam vendam ❤️",
+"No Solatha d 😔",
+"My heart chose only you 💔",
+"Panda kutty yes slu d🤍",
+"Please click YES ❤️"
+];
+
+let msgIndex=0;
+
+function moveNo(){
+
+noBtn.style.left=Math.random()*(window.innerWidth-100)+"px";
+noBtn.style.top=Math.random()*(window.innerHeight-50)+"px";
+
+noMsg.innerText=messages[msgIndex];
+noMsg.style.opacity=1;
+
+msgIndex++;
+if(msgIndex>=messages.length)
+msgIndex=messages.length-1;
+
+let size=parseFloat(window.getComputedStyle(yesBtn).fontSize);
+yesBtn.style.fontSize=(size+2)+"px";
+
+}
+
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
+
+/* accept */
+
+function accept(){
+
+confetti();
+nextScene(3);
+
+}
+
+/* envelope */
+
+function openEnvelope(){
+
+document.getElementById("envelope").classList.add("open");
+
+typeLetter(`Swetha,
+
+From the moment I met you,
+my life changed.
+
+Will you be mine forever?
+
+— Sirancheevi ❤️`);
+
+}
+
+/* typing */
+
+function typeLetter(text){
+
+let el=document.getElementById("letter");
+
+el.style.display="block";
+el.innerHTML="";
+
+let i=0;
+
+let timer=setInterval(()=>{
+
+if(i<text.length){
+
+el.innerHTML+=text[i]=="\n"?"<br>":text[i];
+i++;
+
+}else clearInterval(timer);
+
+},30);
+
+}
+
+/* confetti */
+
+function confetti(){
+
+for(let i=0;i<40;i++){
+
+let h=document.createElement("div");
+
+h.className="heart";
+h.innerHTML="❤️";
+
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(Math.random()*3+3)+"s";
+
+document.body.appendChild(h);
+
+}
+
+}
+
+/* final */
+
+function finalYes(){
+
+confetti();
+stopRecording();
+nextScene(6);
+
+}
+
+</script>
+
+</body>
+</html>
